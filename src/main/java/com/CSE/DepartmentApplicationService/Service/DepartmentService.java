@@ -17,18 +17,21 @@ public class DepartmentService {
     public List<User> getUserByType(String userType) {
 
         List<User> all = userDaoForDp.findAll();
+        //return all;
         List<User> send = new ArrayList<>();
-        for(User select : all){
-            if(userType == "administrator" || userType == "instructor"){
+        for(User itr: all){
+            System.out.println(userType + "Hello");
+            if(userType.equalsIgnoreCase("administrator") || userType.equalsIgnoreCase("instructor")){
                 System.out.println("reached");
-                if(select.getUserType().toString() == "user" && select.getApplied()){
-                    send.add(select);
+                System.out.println(itr.getUserType().toString());
+                System.out.println(itr.getApplied());
+                if(itr.getUserType().toString().equalsIgnoreCase("user") && itr.getApplied()){
+                    send.add(itr);
                 }
             }
-            else{
-                return null;
-            }
+            return send;
         }
+        System.out.println(send);
         return send;
     }
 }

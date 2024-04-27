@@ -19,6 +19,9 @@ public class UserService {
 
 
         if(!userDao.existsById(user.getUserId())){
+            if(user.getApplied() == null){
+                user.setApplied(false);
+            }
             userDao.save(user);
             return user.getName() + " is created successfully";
         }
