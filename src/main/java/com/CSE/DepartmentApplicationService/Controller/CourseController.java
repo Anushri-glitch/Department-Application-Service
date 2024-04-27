@@ -4,10 +4,7 @@ import com.CSE.DepartmentApplicationService.Model.Courses;
 import com.CSE.DepartmentApplicationService.Repository.ICourseDao;
 import com.CSE.DepartmentApplicationService.Service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,12 +18,14 @@ public class CourseController {
     ICourseDao courseDao;
 
     //Get All Courses
+    @CrossOrigin(origins ="*")
     @GetMapping(value = "/getAllCourses")
-    public List<Courses> getAllCourses(){
+    public List<String> getAllCourses(){
         return courseService.getAllCourses();
     }
 
     //Create Course
+    @CrossOrigin(origins ="*")
     @PostMapping(value = "/saveCourse")
     public String saveCourse (@RequestBody Courses course){
         courseDao.save(course);

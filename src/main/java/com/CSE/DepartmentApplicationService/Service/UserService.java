@@ -15,29 +15,18 @@ public class UserService {
     @Autowired
     ISignInDao signInDao;
 
-    public String signUp(User user) {
-
-
-        if(!userDao.existsById(user.getUserId())){
-            if(user.getApplied() == null){
-                user.setApplied(false);
-            }
-            userDao.save(user);
-            return user.getName() + " is created successfully";
-        }
-        else{
-            return "Already Registered";
-        }
+    public User signUp(User user) {
+        userDao.save(user);
+        return user;
     }
 
-    public String signIn(SignInInput sign) {
+    public User signIn(SignInInput sign) {
         User oldUser = userDao.findByEmail(sign.getEmail());
-        if(oldUser != null){
-            signInDao.save(sign);
-            return "SignIn Successfully";
+        if(oldUser != null && oldUser.getPassword().equals(sign.getPassword())){
+            return oldUser;
         }
         else{
-            return "User not found !!";
+            return null;
         }
     }
 }
